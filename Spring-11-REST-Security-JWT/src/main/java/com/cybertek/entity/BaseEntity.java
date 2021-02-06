@@ -25,7 +25,7 @@ public class BaseEntity {
     private Date createdDate; //for before java 8, after java 8 LocalDate
 
     @JsonIgnore
-    @Column(name="updated_date", nullable = false, updatable = false)
+    @Column(name="updated_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)//for before java 8, after java 8 LocalDate
     private Date updatedDate; //for before java 8, after java 8 LocalDate
 
