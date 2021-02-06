@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -49,18 +50,28 @@ public class JWTUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
-    //get a claim value from a token by claim property in param
+    //get a claim value from a token by claimsResolver Function in param
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
     //get user name from token
-    private String extractUsername(String token){
+    public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
     //get expiration from token
     public  Date extractExpiration(String token){
         return extractClaim(token, Claims::getExpiration);
     }
+    //checks token expired or not
+    private Boolean isTokenExpired(String token){
+        return extractExpiration(token).before(new Date());
+    }
+    // check claims value matching db user's profile
+    public Boolean validateToken(String token, UserDetails userDetails){
+        final String username=extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
 
 }
