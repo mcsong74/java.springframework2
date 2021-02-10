@@ -2,6 +2,7 @@ package com.cybertek.config;
 
 import com.cybertek.service.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,11 +14,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    // in order to enable security, need to create this class,
+    // 1. extends WebSecurityConfigurerAdapter
+    // 2. annotation - @Configuration, @EnableWebSecurity
+    // 3. @Override methods
     @Autowired
     private SecurityFilter securityFilter;
 
     //no login form, need below
     @Override
+    @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
@@ -30,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll() //all user can access
                 .anyRequest()
                 .authenticated();
-
+        //run security filter before send any api request
         http.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
     }

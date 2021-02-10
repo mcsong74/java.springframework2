@@ -19,18 +19,18 @@ public class JWTUtil {
     private String secret = "cybertek";
 
     //create payload and encoded Token String
-    public String generateToken(User user, String username){
+    public String generateToken(User user){
         // generating payload for Token
-        //in spring, payload called claims
+        //in spring, payload called claims. only for the payload
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", user.getUsername());
         claims.put("email", user.getEmail());
-        return createToken(claims, username);
+        return createToken(claims, user.getUsername());
 
     }
     //create Token return encoded Token string
     private String createToken(Map<String, Object> claims, String username){
-
+        //creating a token
         return Jwts
                 .builder()
                 .setClaims(claims)
@@ -50,21 +50,28 @@ public class JWTUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
+    /*        ---  Decoding token ---         */
     //get a claim value from a token by claimsResolver Function in param
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     //get user name from token
     public String extractUsername(String token){
+
         return extractClaim(token, Claims::getSubject);
     }
+
     //get expiration from token
     public  Date extractExpiration(String token){
+
         return extractClaim(token, Claims::getExpiration);
     }
+
     //checks token expired or not
     private Boolean isTokenExpired(String token){
+
         return extractExpiration(token).before(new Date());
     }
     // check claims value matching db user's profile
