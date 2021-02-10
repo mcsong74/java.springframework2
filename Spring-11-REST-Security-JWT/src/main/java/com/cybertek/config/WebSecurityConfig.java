@@ -29,8 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        http
-                .csrf().disable() //to config custom config manually, need to be disabled//
+        http    //ex. if there is angular, has diff port using it, and csrf need to be disabled
+                .csrf()
+                .disable() //to config custom config manually, need to be disabled//
                 .authorizeRequests()
                 .antMatchers("/authenticate") //
                 .permitAll() //all user can access

@@ -38,6 +38,7 @@ public class AuthenticationController {
 
         String jwtToken = jwtUtil.generateToken(foundUser);
 
-        return ResponseEntity.ok(new ResponseWrapper("Login successful!", jwtToken));
+        return ResponseEntity
+                .ok(new ResponseWrapper("Login successful!", jwtToken));
     }
 }
