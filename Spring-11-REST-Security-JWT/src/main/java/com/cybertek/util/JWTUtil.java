@@ -31,20 +31,14 @@ public class JWTUtil {
     //create Token return encoded Token string
     private String createToken(Map<String, Object> claims, String username){
         //creating a token
+
         return Jwts
                 .builder()
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *10)) //10 hours token validity
-                .signWith(SignatureAlgorithm.HS256,secret).compact();
-//        return Jwts
-//                .builder()
-//                .setClaims(claims)
-//                .setSubject(username)
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 60 * 10)) //10 hr
-//                .signWith(SignatureAlgorithm.HS256, secret).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) //10 hr
+                .signWith(SignatureAlgorithm.HS256, secret).compact();
 
     }
 
