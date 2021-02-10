@@ -36,9 +36,16 @@ public class JWTUtil {
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + (1000*60*60*60*10))) //10 hr
-                .signWith(SignatureAlgorithm.HS256, secret) //signature
-                .compact();
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 *10)) //10 hours token validity
+                .signWith(SignatureAlgorithm.HS256,secret).compact();
+//        return Jwts
+//                .builder()
+//                .setClaims(claims)
+//                .setSubject(username)
+//                .setIssuedAt(new Date(System.currentTimeMillis()))
+//                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 60 * 10)) //10 hr
+//                .signWith(SignatureAlgorithm.HS256, secret).compact();
+
     }
 
     //decode a token return as Claims object
