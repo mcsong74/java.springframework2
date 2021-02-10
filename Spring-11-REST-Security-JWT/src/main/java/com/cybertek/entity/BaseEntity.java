@@ -20,7 +20,7 @@ public class BaseEntity {
     private Boolean isDeleted;
 
     @JsonIgnore
-    @Column(name="created_date", nullable = false, updatable = false)
+    @Column(name="create_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)//for before java 8, after java 8 LocalDate
     private Date createdDate; //for before java 8, after java 8 LocalDate
 
