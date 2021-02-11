@@ -8,5 +8,8 @@ import lombok.Setter;
 @Setter
 @Builder
 public class DefaultExceptionMessageDto {
+    //in order to carry the message, need to create this class
+
     private String message;
+
 }
