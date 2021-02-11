@@ -1,5 +1,6 @@
 package com.cybertek.controller;
 
+import com.cybertek.annotation.DefaultExceptionMessage;
 import com.cybertek.entity.AuthenticationRequest;
 import com.cybertek.entity.ResponseWrapper;
 import com.cybertek.entity.User;
@@ -25,7 +26,9 @@ public class AuthenticationController {
     private JWTUtil jwtUtil;
 
     @PostMapping("/authenticate")
+    @DefaultExceptionMessage(defaultMessage = "Bad Credential !!!")
     public ResponseEntity<ResponseWrapper> doLogin(@RequestBody AuthenticationRequest authenticationRequest){
+
         String password = authenticationRequest.getPassword();
         String username = authenticationRequest.getUsername();
 
