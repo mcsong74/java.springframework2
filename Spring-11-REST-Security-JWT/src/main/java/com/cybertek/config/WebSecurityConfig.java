@@ -27,13 +27,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+    private static final String[] permittedUrls = {
+            "/authenticate",
+            "/create-user",
+            "/api/v1/**",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/swagger-ui/**",
+            "/webjars/**"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http    //ex. if there is angular, has diff port using it, and csrf need to be disabled
                 .csrf()
                 .disable() //to config custom config manually, need to be disabled//
                 .authorizeRequests()
-                .antMatchers("/authenticate", "/create-user") //
+//                .antMatchers("/authenticate", "/create-user") //
+                .antMatchers(permittedUrls) // method for public access
                 .permitAll() //all user can access
                 .anyRequest()
                 .authenticated();
