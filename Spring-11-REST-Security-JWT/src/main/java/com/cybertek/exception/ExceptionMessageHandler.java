@@ -43,20 +43,27 @@ public class ExceptionMessageHandler {
                 .build(), HttpStatus.FORBIDDEN);
     }
 
+    //generic
     @ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class, BadCredentialsException.class})
     public ResponseEntity<ResponseWrapper> genericException(Throwable e, HandlerMethod handlerMethod) {
+
         Optional<DefaultExceptionMessageDto> defaultMessage = getMessageFromAnnotation(handlerMethod.getMethod());
+
         if (defaultMessage.isPresent() && !ObjectUtils.isEmpty(defaultMessage.get().getMessage())) {
             ResponseWrapper response = ResponseWrapper
                     .builder()
                     .success(false)
-                    .message(defaultMessage.get().getMessage())
+                    .message(defaultMessage.get().getMessage())//coming from annotation
                     .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                     .build();
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(ResponseWrapper.builder().success(false).message("Action failed: An error occurred!").code(HttpStatus.INTERNAL_SERVER_ERROR.value()).build(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ResponseWrapper.builder().success(false)
+                .message("Action failed: An error occurred!")
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    //getting a message from annotation and returns the message
     private Optional<DefaultExceptionMessageDto> getMessageFromAnnotation(Method method) {
         com.cybertek.annotation.DefaultExceptionMessage defaultExceptionMessage =
                 method.getAnnotation(com.cybertek.annotation.DefaultExceptionMessage.class);
