@@ -32,7 +32,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
         if (authorizationHeader != null) {
-            token = authorizationHeader;
+            token = authorizationHeader.replace("Bearer", ""); //with OpenAPI
+//            token = authorizationHeader; //commented for OpenAPI
             username = jwtUtil.extractUsername(token);
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

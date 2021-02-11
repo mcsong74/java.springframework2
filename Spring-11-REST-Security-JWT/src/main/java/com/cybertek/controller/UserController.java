@@ -3,6 +3,8 @@ package com.cybertek.controller;
 import com.cybertek.entity.ResponseWrapper;
 import com.cybertek.entity.User;
 import com.cybertek.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @EnableGlobalMethodSecurity(prePostEnabled = true) //authorization description with annotation
+@Tag(name="User conteroller", description = "User API")
 public class UserController {
 
     @Autowired
@@ -24,6 +27,7 @@ public class UserController {
     @GetMapping("/read")
 //    @PreAuthorize("hasAuthority('USER')")
     @PreAuthorize("hasAnyAuthority('USER', 'ADMIN')")
+    @Operation(summary = "Read all users")
     public ResponseEntity<ResponseWrapper> readAll(){
         List<User> users = userService.getAll();
         return ResponseEntity
