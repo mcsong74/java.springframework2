@@ -45,8 +45,8 @@ public class UserService {
             throw new ServiceException("This user already exists, please change your username");
         }
         //set new password for a new user
-        user.setState(UserState.ACTIVE);
-        user.setIsDeleted(false);
+//        user.setState(UserState.ACTIVE);
+//        user.setIsDeleted(false);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setIsVerified(false); //after verification, will be changing to true
         return userRepository.save(user);
