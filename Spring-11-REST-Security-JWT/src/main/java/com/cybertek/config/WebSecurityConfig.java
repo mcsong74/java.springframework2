@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable() //to config custom config manually, need to be disabled//
                 .authorizeRequests()
-                .antMatchers("/authenticate") //
+                .antMatchers("/authenticate", "create-user") //
                 .permitAll() //all user can access
                 .anyRequest()
                 .authenticated();

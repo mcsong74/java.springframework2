@@ -4,6 +4,8 @@ import com.cybertek.annotation.DefaultExceptionMessage;
 import com.cybertek.entity.AuthenticationRequest;
 import com.cybertek.entity.ResponseWrapper;
 import com.cybertek.entity.User;
+import com.cybertek.enums.UserState;
+import com.cybertek.exception.ServiceException;
 import com.cybertek.service.UserService;
 import com.cybertek.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,5 +46,11 @@ public class AuthenticationController {
 
         return ResponseEntity
                 .ok(new ResponseWrapper("Login successful!", jwtToken));
+    }
+
+    @PostMapping("/create-user")
+    public ResponseEntity<ResponseWrapper> createAccount (@RequestBody User user) throws ServiceException {
+        User createdUser = userService.createUser(user);
+        return ResponseEntity.ok(new ResponseWrapper("User has been created successfully!!!", createdUser));
     }
 }
