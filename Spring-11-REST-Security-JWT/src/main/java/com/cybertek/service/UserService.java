@@ -38,12 +38,13 @@ public class UserService {
     public User createUser(User user) throws ServiceException {
         User foundUserByEmail = readByEmail(user.getEmail());
         User foundUserByUsername = readByUsername(user.getUsername());
-        if(foundUserByEmail != null) { //if duplicate, throws exception
-            throw new ServiceException("This user already exists, please change your email");
-        }
-        if(foundUserByUsername != null) {//if duplicate, throws exception
-            throw new ServiceException("This user already exists, please change your username");
-        }
+        //commented below and add annotation in annotation for '/create-user' to use custom exception message
+//        if(foundUserByEmail != null) { //if duplicate, throws exception
+//            throw new ServiceException("This user already exists, please change your email");
+//        }
+//        if(foundUserByUsername != null) {//if duplicate, throws exception
+//            throw new ServiceException("This user already exists, please change your username");
+//        }
         //set new password for a new user
         user.setState(UserState.ACTIVE);
         user.setIsDeleted(false);
