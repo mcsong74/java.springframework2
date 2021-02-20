@@ -3,6 +3,8 @@ package com.cybertek.controller;
 import com.cybertek.entity.Product;
 import com.cybertek.entity.ResponseWrapper;
 import com.cybertek.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ public class ProductController {
 
     private ProductService productService;
 
+    Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -30,16 +34,26 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(){
+    public List<Product> getProducts(){
+        logger.info("Before -> Controller :{} - method :{} - Input Parameter : {}"
+                , "ProductController", "getProducts", "none");
+        List<Product> list = productService.getProducts();
+
+        logger.info("After -> Controller: {} - Method: {} - Output Parameter: {}"
+                , "ProductController", "getProducts",list );
+        return list;
+
         //adding custom header, way 1 - HttpHeaders
-        HttpHeaders responseHttpHeaders = new HttpHeaders();
-        responseHttpHeaders.set("Version", "Cybertek.v1.0.0.1");
-        responseHttpHeaders.set("Operation", "Get List");
+//        HttpHeaders responseHttpHeaders = new HttpHeaders();
+//        responseHttpHeaders.set("Version", "Cybertek.v1.0.0.1");
+//        responseHttpHeaders.set("Operation", "Get List");
+
+
         //For ResponseEntity, need to pass 3 things: status, header, body
         //return type need to be changed ResponseEntity<List<Product>>
-        return ResponseEntity.ok()//.ok == status 200
-                .headers(responseHttpHeaders)
-                .body(productService.getProducts());
+//        return ResponseEntity.ok()//.ok == status 200
+//                .headers(responseHttpHeaders)
+//                .body(productService.getProducts());
     }
 
     //create Product - POST
