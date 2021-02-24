@@ -35,8 +35,16 @@ public class LoggingAspect {
     private void anyUpdateOperation(){
 
     }
-    @Pointcut("execution(* com.cybertek.repository.ProductRepository.findById(Long))")
+    @Pointcut("execution(* com.cybertek.repository.ProductRepository.findById(long))")
     private void anyProductRepositoryFindById(){
 
+    }
+    @Before("anyProductRepositoryFindById()")
+    public void beforeProductRepoAdvice(){
+        logger.info("------- beforeProductRepoAdvice ---------");
+    }
+    @Before("anyUpdateOperation()")
+    public void beforeControllerAdvice(){
+        logger.info("---------- beforeControllerAdvice-------------");
     }
 }
