@@ -20,7 +20,7 @@ public class ProductController {
 
     private ProductService productService;
 
-    Logger logger = LoggerFactory.getLogger(ProductController.class);
+//    Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -35,12 +35,12 @@ public class ProductController {
 
     @GetMapping
     public List<Product> getProducts(){
-        logger.info("Before -> Controller :{} - method :{} - Input Parameter : {}"
-                , "ProductController", "getProducts", "none");
+//        logger.info("Before -> Controller :{} - method :{} - Input Parameter : {}"
+//                , "ProductController", "getProducts", "none");
         List<Product> list = productService.getProducts();
 
-        logger.info("After -> Controller: {} - Method: {} - Output Parameter: {}"
-                , "ProductController", "getProducts",list );
+//        logger.info("After -> Controller: {} - Method: {} - Output Parameter: {}"
+//                , "ProductController", "getProducts",list );
         return list;
 
         //adding custom header, way 1 - HttpHeaders
