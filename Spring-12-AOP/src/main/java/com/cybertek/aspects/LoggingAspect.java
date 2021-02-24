@@ -62,7 +62,7 @@ public class LoggingAspect {
     @Pointcut("@within(org.springframework.stereotype.Service)")
     private void anyServiceAnnotatedOperation(){}
 
-    @Before("anyServiceAnnotatedOperation() || anyControllerOperation")
+    @Before("anyServiceAnnotatedOperation() || anyControllerOperation()")
     public void beforeControllerAdvice2(JoinPoint joinPoint){
         logger.info("Before->Method:{} - Argument {} - Target: {}", joinPoint, joinPoint.getArgs(), joinPoint.getTarget());
     }
