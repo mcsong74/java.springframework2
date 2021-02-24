@@ -1,6 +1,7 @@
 package com.cybertek.aspects;
 
 import com.cybertek.controller.ProductController;
+import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -53,4 +54,23 @@ public class LoggingAspect {
 
 //        logger.info("---------->>> beforeControllerAdvice <<<-------------");
     }
+
+    //Within example
+    @Pointcut("within(com.cybertek.controller..*)")
+    private void anyControllerOperation(){}
+
+    @Pointcut("@within(org.springframework.stereotype.Service)")
+    private void anyServiceAnnotatedOperation(){}
+
+    @Before("anyServiceAnnotatedOperation() || anyControllerOperation")
+    public void beforeControllerAdvice2(JoinPoint joinPoint){
+        logger.info("Before->Method:{} - Argument {} - Target: {}", joinPoint, joinPoint.getArgs(), joinPoint.getTarget());
+    }
+
+
+
+
+
+
+
 }
