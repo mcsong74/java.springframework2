@@ -1,6 +1,7 @@
 package com.cybertek.aspects;
 
 import com.cybertek.controller.ProductController;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -35,16 +36,21 @@ public class LoggingAspect {
     private void anyUpdateOperation(){
 
     }
-    @Pointcut("execution(* com.cybertek.repository.ProductRepository.findById(long))")
+    @Pointcut("execution(* com.cybertek.repository.ProductRepository.findById(Long))")
     private void anyProductRepositoryFindById(){
 
     }
     @Before("anyProductRepositoryFindById()")
-    public void beforeProductRepoAdvice(){
-        logger.info("------- beforeProductRepoAdvice ---------");
+    public void beforeProductRepoAdvice(JoinPoint joinPoint){
+        logger.info("Before->method {} - argument: {} - target: {}", joinPoint, joinPoint.getArgs(),
+                joinPoint.getTarget());
+//        logger.info("---------->>> beforeProductRepoAdvice <<<------------");
     }
     @Before("anyUpdateOperation()")
-    public void beforeControllerAdvice(){
-        logger.info("---------- beforeControllerAdvice-------------");
+    public void beforeControllerAdvice(JoinPoint jointPoint){
+        logger.info("Before->method {} - argument: {} - target: {}", jointPoint, jointPoint.getArgs(),
+                jointPoint.getTarget());
+
+//        logger.info("---------->>> beforeControllerAdvice <<<-------------");
     }
 }
