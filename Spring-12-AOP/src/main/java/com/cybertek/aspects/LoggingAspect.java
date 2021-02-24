@@ -4,13 +4,11 @@ import com.cybertek.controller.ProductController;
 import com.cybertek.entity.Product;
 import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -84,10 +82,15 @@ public class LoggingAspect {
     @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
     private void anyGetMappingProductOperation(){}
 
-    @AfterReturning(pointcut = "anyGetMappingProductOperation()", returning = "results")
-    public void afterReturningGetMappingControllerAdvice(JoinPoint joinPoint, Product results){
+//    @AfterReturning(pointcut = "anyGetMappingProductOperation()", returning = "result")
+//    public void afterReturningGetMappingControllerAdvice(JoinPoint joinPoint, Product result){
+//        logger.info("After Returning (Mono Result) -> Method: {} - results:{}",
+//                joinPoint.getSignature().toShortString(), result);
+//    }
+    @AfterReturning(pointcut = "anyGetMappingProductOperation()", returning = "result")
+    public void afterReturningGetMappingControllerAdvice(JoinPoint joinPoint, ResponseEntity result){
         logger.info("After Returning (Mono Result) -> Method: {} - results:{}",
-                joinPoint.getSignature().toShortString(), results);
+                joinPoint.getSignature().toShortString(), result);
     }
     @AfterReturning(pointcut = "anyGetMappingProductOperation()", returning = "results")
     public void afterReturningGetMappingControllerAdvice2(JoinPoint joinPoint, List<Product> results){
@@ -95,6 +98,22 @@ public class LoggingAspect {
                 joinPoint.getSignature().toShortString(), results);
     }
 
+    //@after throwing
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+    private void anyGetPutMappingProductOperation(){ }
 
+    @AfterThrowing(pointcut = "anyGetPutMappingProductOperation()", throwing = "exception")
+    public void afterThrowingControllerAdvice(JoinPoint joinPoint, RuntimeException exception){
+        logger.info("After Throwing(Send Email to L2 Team -> Method:{} - Exception: {}",
+                joinPoint.getSignature().toShortString(), exception.getMessage());
+    }
 
+    //@after(finally)
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+    private void anyGetPutMappingProductOperation2(){}
+    @After("anyGetPutMappingProductOperation2()")
+    public void afterControllerAdvice(JoinPoint joinPoint){
+        logger.info("After finally -> method: {} - results: {}", joinPoint.getSignature().toShortString(), "Execution" +
+                " completed");
+    }
 }
