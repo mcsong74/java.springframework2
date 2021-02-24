@@ -1,14 +1,18 @@
 package com.cybertek.aspects;
 
 import com.cybertek.controller.ProductController;
+import com.cybertek.entity.Product;
 import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Aspect //AOP
 @Configuration
@@ -67,9 +71,29 @@ public class LoggingAspect {
         logger.info("Before->Method:{} - Argument {} - Target: {}", joinPoint, joinPoint.getArgs(), joinPoint.getTarget());
     }
 
+    //@annotation
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.DeleteMapping)")
+    private void anyDeleteProductOperation(){}
 
+    @Before("anyDeleteProductOperation()")
+    public void beforeControllerDeleteAdvice(JoinPoint joinPoint){
+        logger.info("Before->Method:{} - Argument {} - Target: {}", joinPoint, joinPoint.getArgs(), joinPoint.getTarget());
+    }
 
+    //@AfterReturning
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+    private void anyGetMappingProductOperation(){}
 
+    @AfterReturning(pointcut = "anyGetMappingProductOperation()", returning = "results")
+    public void afterReturningGetMappingControllerAdvice(JoinPoint joinPoint, Product results){
+        logger.info("After Returning (Mono Result) -> Method: {} - results:{}",
+                joinPoint.getSignature().toShortString(), results);
+    }
+    @AfterReturning(pointcut = "anyGetMappingProductOperation()", returning = "results")
+    public void afterReturningGetMappingControllerAdvice2(JoinPoint joinPoint, List<Product> results){
+        logger.info("After Returning (List Result) -> Method: {} - results:{}",
+                joinPoint.getSignature().toShortString(), results);
+    }
 
 
 
