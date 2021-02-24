@@ -21,7 +21,7 @@ public class LoggingAspect {
 //    }
 //
 //    //advice
-//    @Before("pointcut()")
+//    @Before("pointCut()")
 //    public void log(){
 //        //before all methods in Product controller
 //        logger.info("------------");
