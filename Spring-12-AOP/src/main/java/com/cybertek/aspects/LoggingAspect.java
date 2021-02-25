@@ -128,6 +128,7 @@ public class LoggingAspect {
     public Object anyPostControllerAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         logger.info("Before(Method: {} - Parameters: {}", proceedingJoinPoint.getSignature().toShortString(),
                 proceedingJoinPoint.getArgs());
+        //proceed
         List<Product> results = new ArrayList<>();
         results = (List<Product>) proceedingJoinPoint.proceed();
         logger.info("After(Method: {} - Results: {}", proceedingJoinPoint.getSignature().toShortString(),
