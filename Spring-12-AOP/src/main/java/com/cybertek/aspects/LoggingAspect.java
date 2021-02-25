@@ -132,6 +132,7 @@ public class LoggingAspect {
         results = (List<Product>) proceedingJoinPoint.proceed();
         logger.info("After(Method: {} - Results: {}", proceedingJoinPoint.getSignature().toShortString(),
                 results);
+        return  results;
     }
 
 
