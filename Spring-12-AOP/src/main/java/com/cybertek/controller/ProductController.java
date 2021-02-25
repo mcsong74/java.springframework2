@@ -62,24 +62,24 @@ public class ProductController {
     }
 
     //create Product - POST
-    @PostMapping
-    public List<Product> createProduct(@RequestBody Product product){
-        List<Product> set = productService.createProduct(product);
-        return set;
-
-
-    }
 //    @PostMapping
-//    public ResponseEntity<List<Product>> createProduct(@RequestBody Product product){
+//    public List<Product> createProduct(@RequestBody Product product){
 //        List<Product> set = productService.createProduct(product);
+//        return set;
 //
-//        return ResponseEntity
-//                .status(HttpStatus.CREATED)
-//                .header("Version", "Cybertek.v1.0.0.1")
-//                .header("Operation", "Create ")
-//                .body(set);
 //
 //    }
+    @PostMapping
+    public ResponseEntity<List<Product>> createProduct(@RequestBody Product product){
+        List<Product> set = productService.createProduct(product);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .header("Version", "Cybertek.v1.0.0.1")
+                .header("Operation", "Create ")
+                .body(set);
+
+    }
     //Delete Product -DELETE
     @DeleteMapping(value="/{id}")
     public ResponseEntity<List<Product>> deleteProduct(@PathVariable("id") long id){

@@ -129,8 +129,10 @@ public class LoggingAspect {
         logger.info("Before(Method: {} - Parameters: {}", proceedingJoinPoint.getSignature().toShortString(),
                 proceedingJoinPoint.getArgs());
         //proceed
-        List<Product> results = new ArrayList<>();
-        results = (List<Product>) proceedingJoinPoint.proceed();
+        ResponseEntity<List<Product>> results;
+        results = (ResponseEntity<List<Product>>) proceedingJoinPoint.proceed();
+//        List<Product> results = new ArrayList<>();
+//        results = (List<Product>) proceedingJoinPoint.proceed();
         logger.info("After(Method: {} - Results: {}", proceedingJoinPoint.getSignature().toShortString(),
                 results);
         return  results;
