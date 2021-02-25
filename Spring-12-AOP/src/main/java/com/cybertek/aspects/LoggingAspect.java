@@ -2,14 +2,15 @@ package com.cybertek.aspects;
 
 import com.cybertek.controller.ProductController;
 import com.cybertek.entity.Product;
-import org.aopalliance.intercept.Joinpoint;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Aspect //AOP
@@ -116,4 +117,24 @@ public class LoggingAspect {
         logger.info("After finally -> method: {} - results: {}", joinPoint.getSignature().toShortString(), "Execution" +
                 " completed");
     }
+
+    //@Around
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+    private void anyPostProductsOperation(){}
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.PutMapping)")
+    private void anyPutProductsOperation(){}
+    ////advice
+    @Around("anyPostProductsOperation()")
+    public Object anyPostControllerAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        logger.info("Before(Method: {} - Parameters: {}", proceedingJoinPoint.getSignature().toShortString(),
+                proceedingJoinPoint.getArgs());
+        List<Product> results = new ArrayList<>();
+        results = (List<Product>) proceedingJoinPoint.proceed();
+        logger.info("After(Method: {} - Results: {}", proceedingJoinPoint.getSignature().toShortString(),
+                results);
+    }
+
+
+
+
 }
