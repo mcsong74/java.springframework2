@@ -2,13 +2,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.NullSource;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.*;
+
+import java.util.stream.Stream;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class CalculatorParameterizedTest {
+
 
 
     @ParameterizedTest
@@ -26,11 +26,21 @@ public class CalculatorParameterizedTest {
     @ParameterizedTest
     @ValueSource(strings={"Java", "JS", "TS"})
 //    @EmptySource //checking empty
-//    @NullSource
-    @NullAndEmptySource
+//    @NullSource //checking null
+    @NullAndEmptySource //checking null and empty
     void testCase3(String args){
         Assertions.assertTrue(!args.isEmpty());
     }
 
+    @ParameterizedTest
+    @MethodSource("stringProvider")
+    void testCase4(String args){
+        Assertions.assertNotNull(args);
+    }
 
+    //provider for MethodSource
+    static String[] stringProvider(){
+        String[] strArr= {"Java", "JS", "TS"};
+        return strArr;
+    }
 }
