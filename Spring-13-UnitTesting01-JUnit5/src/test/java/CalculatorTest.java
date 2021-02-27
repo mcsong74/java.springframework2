@@ -1,6 +1,4 @@
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +13,14 @@ class CalculatorTest {
     public static void setupAll(){
         System.out.println("BeforeAll executed!!!");
     }
-
+    @AfterEach
+    void tearEach(){
+        System.out.println("AfterEach executed!");
+    }
+    @AfterAll
+    static void tearAll(){
+        System.out.println("AfterAll executed!");
+    }
     @Test
     void testCase1(){
         System.out.println("this is test case 1!");
