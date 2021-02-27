@@ -1,4 +1,5 @@
 public class CheckingAccount {
+
         double balance;
         long accountNumber;
         String accountHolder;
