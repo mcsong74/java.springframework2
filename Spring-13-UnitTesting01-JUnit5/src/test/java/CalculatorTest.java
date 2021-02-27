@@ -15,7 +15,16 @@ class CalculatorTest {
     }
     @Test
     void testCase3(){
-        fail("not implemented yet");
+        assertArrayEquals(new int[]{1,2,3}, new int[]{1,2,3}, "Array Equal Test");
+    }
+    @Test
+    void testCase4(){
+        String nullString = null;
+        String notNullString="Cybertek:";
+        assertNotNull(notNullString, "Null test");
+//        assertNotNull(nullString, "Null test");
+        assertNull(nullString, "Null testing");
+
     }
     @Test
     void add() {
