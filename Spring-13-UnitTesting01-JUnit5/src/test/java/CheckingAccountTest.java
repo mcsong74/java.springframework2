@@ -2,8 +2,8 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@TestMethodOrder(MethodOrderer.MethodName.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.MethodName.class) // runs order of @Test method name
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class) //runs @Test s  in order with @Order(1), @Order(2)
 class CheckingAccountTest {
 
     CheckingAccount checkingAccount;
@@ -40,5 +40,14 @@ class CheckingAccountTest {
     void purchase() {
         System.out.println("Purchase test");
         assertEquals(-65, checkingAccount.purchase("Shoes", 130));
+    }
+
+    @Test
+    @Order(4)
+    void withdraw_branch(){
+        assertThrows(IllegalArgumentException.class, ()->{
+            checkingAccount.withdraw_branch(600, false);
+        });//arg: exception type, executable (ex. lambda)
+
     }
 }
