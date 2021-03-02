@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UnitTestTaskTest {
 
-    UnitTestTask unitTestTask;
+    UnitTestTask unitTestTask = new UnitTestTask();
 
     @ParameterizedTest
     @CsvSource({"AABCDDEFF, ABCDEF", "ABCCABDEEF, ABCABDEF"})
@@ -24,14 +24,14 @@ class UnitTestTaskTest {
     @CsvSource({"hello, 2, el"})
     @Order(3)
     void everyNthCharTest(String str, int nth, String expResult) {
-        assertEquals(expResult, unitTestTask.everyNthChar(str, nth));
+        assertArrayEquals(expResult.toCharArray(), unitTestTask.everyNthChar(str.toCharArray(), nth));
     }
 
     @Test
     @Order(4)
     void everyNthCharTest2() {
         assertThrows(ArrayIndexOutOfBoundsException.class, ()->{
-            unitTestTask.everyNthChar("Hello", 7);
+            unitTestTask.everyNthChar(("Hello".toCharArray()), 7);
         });
     }
 
@@ -64,5 +64,10 @@ class UnitTestTaskTest {
             unitTestTask.convert(a, b);
         });
     }
-
+    @ParameterizedTest
+    @CsvSource({"ABCDEFF, ABCDEF", "AB88EFFG, AB8EFG", "112233445566, 123456", "ZYZQQB, ZYZQB", "A, A"})
+    @Order(9)
+    void removePairsTest2(String strInput, String expResult) {
+        assertEquals(expResult, unitTestTask.removePairs(strInput));
+    }
 }
