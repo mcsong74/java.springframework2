@@ -40,13 +40,14 @@ class UnitTestTaskTest {
     @ValueSource(strings = {"Ozzy"})
     @Order(5)
     void nullIfOddLengthTest(String args) {
-        assertNull(unitTestTask.nullIfOddLength(args));
+        assertNotNull(unitTestTask.nullIfOddLength(args));
     }
+
     @ParameterizedTest
     @ValueSource(strings = {"Hello"})
     @Order(6)
     void nullIfOddLengthTest2(String args) {
-        assertNotNull(unitTestTask.nullIfOddLength(args));
+        assertNull(unitTestTask.nullIfOddLength(args));
     }
 
 

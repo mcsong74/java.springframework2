@@ -35,11 +35,16 @@ public class UnitTestTask {
 
 
     public String nullIfOddLength(String str){
-        return null;
+
+        return (str.length()%2!=0)?null:str;
     }
 
     public Long convert(Long a, Long b){
-        return -1L;
+        if (b==0){
+            throw new ArithmeticException("cannot be divided by 0");
+        }
+
+        return (a/b)*150;
     }
 
 
