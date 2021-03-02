@@ -8,6 +8,8 @@ public class UnitTestTask {
     public String removePairs(String str){
         String result="";
         int index =0;
+        if (str==null)
+            throw new NullPointerException();
         result = str.substring(0, index+1);
 
         while(str.length() > 1 && index<str.length()-1){
@@ -23,7 +25,7 @@ public class UnitTestTask {
     public char[] everyNthChar(char[] chrArr, Integer n){
         String result="";
         if(n>chrArr.length){
-            throw new ArrayIndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException("nth number passed in arg is larger than char array.");
         }
         while(n < chrArr.length){
             result+=chrArr[n-1];
