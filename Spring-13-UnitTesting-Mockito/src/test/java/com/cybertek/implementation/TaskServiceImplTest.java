@@ -60,8 +60,8 @@ class TaskServiceImplTest {
         //then
         then(taskRepository).should().findById(Mockito.anyLong());
         then(taskRepository).should(never()).findById(-5L);
-
-        assertNull(taskDTO);
+        assertNotNull(taskDTO);
+//        assertNull(taskDTO);
     }
 
 }
