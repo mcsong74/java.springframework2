@@ -12,8 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProjectServiceImplTest {
@@ -36,11 +35,27 @@ class ProjectServiceImplTest {
         when(projectMapper.convertToDto(project)).thenReturn(projectDTO);
 
         ProjectDTO projectDTO1 = projectService.getByProjectCode("PR01");
-
         verify(projectRepository).findByProjectCode(Mockito.anyString());
         verify(projectMapper).convertToDto(Mockito.any(Project.class));
+
+        verify(projectService).getByProjectCode(Mockito.anyString());
 
         assertNotNull(projectDTO1);
 
     }
+
+    @Test
+    void getByProjectsCode_exceptionTest(){
+        when(projectRepository.findByProjectCode("")).thenThrow(new RuntimeException("Project Not Found"));
+
+        Throwable exception = assertThrows(RuntimeException.class, ()-> projectService.getByProjectCode(""));
+
+        verify(projectRepository).findByProjectCode(Mockito.anyString());
+
+        assertEquals(exception.getMessage(), "Project Not Found");
+
+    }
+
+
+
 }
