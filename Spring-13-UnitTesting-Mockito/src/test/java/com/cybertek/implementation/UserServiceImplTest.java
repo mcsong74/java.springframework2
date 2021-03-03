@@ -2,16 +2,17 @@ package com.cybertek.implementation;
 
 import com.cybertek.mapper.MapperUtil;
 import com.cybertek.repository.UserRepository;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) // to use Mockito, this annotation is required
+@Tag("regression")
 class UserServiceImplTest {
 
     @Mock

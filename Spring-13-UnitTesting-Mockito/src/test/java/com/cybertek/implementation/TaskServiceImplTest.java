@@ -4,6 +4,7 @@ import com.cybertek.dto.TaskDTO;
 import com.cybertek.entity.Task;
 import com.cybertek.mapper.TaskMapper;
 import com.cybertek.repository.TaskRepository;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,6 +22,7 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@Tag("regression")
 class TaskServiceImplTest {
     @Mock
     TaskRepository taskRepository;
@@ -59,7 +61,7 @@ class TaskServiceImplTest {
         then(taskRepository).should().findById(Mockito.anyLong());
         then(taskRepository).should(never()).findById(-5L);
 
-        assertNotNull(taskDTO);
+        assertNull(taskDTO);
     }
 
 }

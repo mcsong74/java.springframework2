@@ -2,9 +2,9 @@ package com.cybertek.implementation;
 
 import com.cybertek.dto.ProjectDTO;
 import com.cybertek.entity.Project;
-import com.cybertek.enums.Status;
 import com.cybertek.mapper.ProjectMapper;
 import com.cybertek.repository.ProjectRepository;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@Tag("regression")
 class ProjectServiceImplTest {
 
     @Mock
