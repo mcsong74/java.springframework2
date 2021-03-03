@@ -2,6 +2,7 @@ package com.cybertek.implementation;
 
 import com.cybertek.dto.ProjectDTO;
 import com.cybertek.entity.Project;
+import com.cybertek.enums.Status;
 import com.cybertek.mapper.ProjectMapper;
 import com.cybertek.repository.ProjectRepository;
 import org.junit.jupiter.api.Test;
@@ -38,8 +39,6 @@ class ProjectServiceImplTest {
         verify(projectRepository).findByProjectCode(Mockito.anyString());
         verify(projectMapper).convertToDto(Mockito.any(Project.class));
 
-        verify(projectService).getByProjectCode(Mockito.anyString());
-
         assertNotNull(projectDTO1);
 
     }
@@ -56,6 +55,20 @@ class ProjectServiceImplTest {
 
     }
 
+    @Test
+    void saveTest(){
+        Project project = new Project();
+        ProjectDTO projectDTO = new ProjectDTO();
+
+        when(projectMapper.convertToEntity(projectDTO)).thenReturn(project);
+        when(projectRepository.save(project)).thenReturn(project);
+        Project project1 = projectService.save(projectDTO);
+
+        verify(projectMapper).convertToEntity(Mockito.any(ProjectDTO.class));
+        verify(projectRepository).save(Mockito.any(Project.class));
+
+        assertNotNull(project1);
+    }
 
 
 }
