@@ -21,7 +21,6 @@ class WelcomeControllerTest {
     private MockMvc mockMvc; //for Mock API
 
 
-
     @Test
     void welcome() throws Exception {
         //call /welcome end point
