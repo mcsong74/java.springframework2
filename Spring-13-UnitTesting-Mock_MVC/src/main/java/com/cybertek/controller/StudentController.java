@@ -16,8 +16,13 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+
     @GetMapping("/data")
     List<Student> getStudent_data(){
         return studentService.getStudent_data();
     }
+
+
+
+
 }
