@@ -29,4 +29,10 @@ public class UnitTestingImpl {
         int sum = 0;
         return Arrays.stream(dataRepository.findAll()).sum();
     }
+
+    public int calculateSumUsingDataService_withParam(){
+        int sum = 0;
+        return Arrays.stream(dataRepository.findById(2)).sum();
+    }
+
 }

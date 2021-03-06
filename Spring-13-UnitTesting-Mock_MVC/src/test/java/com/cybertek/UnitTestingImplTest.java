@@ -14,14 +14,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UnitTestingImplTest {
 
-    @Test
+    @Test //junit5
     void calculateSum() {
         UnitTestingImpl unitTesting = new UnitTestingImpl();
         int actual = unitTesting.calculateSum(new int[]{1,2,3});
         assertEquals(6, actual);
     }
 
-    @Test
+    @Test //junit5
     void calculateSumUsingDataService(){
         // this has data layer + method  testing, Unit testing is simplest say possible, so need to sepearte layer
         DataRepositoryImpl dataRepository = new DataRepositoryImpl();
@@ -35,13 +35,18 @@ class UnitTestingImplTest {
     @InjectMocks
     UnitTestingImpl unitTesting;
 
-    @Test
+    @Test //Mockito
     void calculateSumUsingDataServiceUsingMock(){
         //separated data layer using Mock to test unitTesting.calculateSumUsingDtaService()
-        int sum = 0;
-        when(dataRepository.findAll()).thenReturn(new int[] {1,2,3});
+        when(dataRepository.findAll()).thenReturn(new int[] {1,2,3}).thenReturn(new int[]{5,5,5});
         int actual = unitTesting.calculateSumUsingDtaService(); //goal for unit testing here
+        int actual2 = unitTesting.calculateSumUsingDtaService(); //goal for unit testing here
+
         assertEquals(6, actual);
+        assertEquals(15, actual2);
+
     }
+
+
 
 }
