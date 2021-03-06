@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UnitTestingImplTest {
@@ -60,6 +60,9 @@ class UnitTestingImplTest {
         when(dataRepository.findById(anyInt())).thenReturn(new int[] {10,10,10});
         int actual = unitTesting.calculateSumUsingDataService_withParam();
         assertEquals(30, actual);
+        
+        verify(dataRepository).findById(2); //make sure findById(2) method has been called
+        verify(dataRepository, times(2)).findById(2);
     }
 
 
