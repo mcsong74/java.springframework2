@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(WelcomeController.class) //only test executes only in WelcomeController
 //@SpringBootTest  //either one annotation
 class WelcomeControllerTest {
-//Controller level testing
+//web level testing
     @Autowired
     private MockMvc mockMvc; //for Mock API
 
